@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía Mono Virtual</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --mono:url("data:image/webp;base64,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");
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --hand:"Caveat","Segoe Print","Bradley Hand","Comic Sans MS",cursive;
+  --texto:#191918;--suave:#615D59;--borde:#E9E9E7;--gris:#F6F5F4;--verde:#0A7F2A;--verde-suave:#E2F7E7;--punto:#02CF37;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:#FFFFFF}
+body{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body{color:var(--texto);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ol,ul{margin:0}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.025em}
+p,li{text-wrap:pretty}
+.wrap{width:min(820px,100%);margin-inline:auto}
+.av{display:block;flex:none;border-radius:50%;background:var(--mono) center/cover no-repeat}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--gris);border:1px solid var(--borde);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.ruta{font-weight:600;color:var(--texto)}
+
+.top{border-bottom:1px solid var(--borde);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
+.top .wrap{padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.top .av{width:32px;height:32px}
+.top b{font-weight:700}
+.top span{color:var(--suave)}
+
+.hero{padding:44px 0 8px;text-align:center}
+.scene{display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:18px}
+.bubble{position:relative;padding:.5em .9em .9em;margin-bottom:48px;font:600 26px/1 var(--hand);transform:rotate(-4deg);white-space:nowrap}
+.bubble svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.bubble span{position:relative}
+.hero .av{width:110px;height:110px;filter:drop-shadow(0 10px 16px rgba(25,25,24,.18))}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 11px;border:1px solid var(--borde);border-radius:999px;font-size:14.5px;font-weight:600}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--punto)}
+.hero h1{font-size:clamp(2rem,1rem + 3.6vw,3.2rem);line-height:1.06;font-weight:700;margin:18px auto 0;max-width:14em}
+.hl{background:var(--verde-suave);border-radius:.16em;padding:0 .12em}
+.hero .lead{max-width:34em;margin:20px auto 0;color:var(--suave);font-size:19px}
+
+section{padding:48px 0 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--suave);margin-bottom:10px}
+.kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--k,var(--punto))}
+h2{font-size:clamp(1.6rem,1.1rem + 1.8vw,2.3rem);line-height:1.1;font-weight:700}
+.sub{margin-top:10px;color:var(--suave)}
+
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.trio div{background:var(--gris);border-radius:14px;padding:16px}
+.trio b{display:block;font-size:16px;margin-bottom:4px}
+.trio p{font-size:15px;color:var(--suave);line-height:1.45}
+@media (max-width:680px){.trio{grid-template-columns:minmax(0,1fr)}}
+
+.check{margin-top:22px;display:grid;gap:10px;padding:0;list-style:none}
+.check li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 16px;border:1px solid var(--borde);border-radius:14px}
+.check li::before{content:"";width:22px;height:22px;margin-top:2px;border-radius:7px;border:2px solid #9BD9AA;background:var(--verde-suave)}
+.check b{display:block}
+.check p{font-size:15.5px;color:var(--suave);margin-top:2px}
+.opcional{display:inline-block;margin-left:6px;font-size:12px;font-weight:600;color:#8A4B00;background:#FDF0D5;border-radius:6px;padding:1px 7px;vertical-align:2px}
+
+.pasos{margin-top:24px;padding:0;list-style:none;counter-reset:paso}
+.pasos>li{counter-increment:paso;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:0 0 26px;position:relative}
+.pasos>li::before{content:counter(paso);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--verde);color:#FFFFFF;font-weight:700;font-size:17px;position:relative;z-index:1}
+.pasos>li:not(:last-child)::after{content:"";position:absolute;left:19px;top:44px;bottom:2px;border-left:2px dashed #CFE9D6}
+.pasos h3{font-size:19px;line-height:1.3;margin-top:7px}
+.pasos p,.pasos ul{margin-top:6px;color:#3F3C39}
+.pasos ul{padding-left:18px}
+.pasos li li{margin:3px 0}
+.dos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.dos div{background:var(--gris);border-radius:12px;padding:12px 14px;font-size:15px}
+.dos b{display:block;margin-bottom:2px}
+@media (max-width:620px){.dos{grid-template-columns:minmax(0,1fr)}}
+.consejo{margin-top:10px;padding:10px 14px;border-radius:12px;background:#FFF8EE;border:1px solid #F5DDBB;font-size:15px}
+.mano{font:600 22px/1.1 var(--hand);color:var(--verde)}
+
+.datos{margin-top:22px;border-radius:16px;padding:20px 22px;background:var(--verde-suave);color:#0A4F1C}
+.datos ul{margin-top:8px;padding-left:18px}
+.datos li{margin:6px 0}
+
+.limites{margin-top:18px;padding:0;list-style:none;display:grid;gap:8px}
+.limites li{display:flex;gap:10px;padding:10px 14px;border-radius:12px;background:var(--gris);font-size:15.5px}
+.limites li::before{content:"";width:8px;height:8px;border-radius:50%;background:#DFAB01;flex:none;margin-top:9px}
+
+details{border:1px solid var(--borde);border-radius:12px;padding:12px 16px;margin-top:10px}
+summary{cursor:pointer;font-weight:600}
+details p{margin-top:8px;color:#3F3C39;font-size:15.5px}
+
+.preguntas{margin-top:20px;padding:0;list-style:none;counter-reset:preg;display:grid;gap:10px}
+.preguntas li{counter-increment:preg;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;padding:12px 16px;border-radius:14px;background:var(--gris)}
+.preguntas li::before{content:counter(preg);display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#FFFFFF;border:1px solid var(--borde);font-weight:700;font-size:14px}
+.cierre{text-align:center;padding:56px 0 64px}
+.cierre p{color:var(--suave);margin-top:10px}
+@media (max-width:520px){body{font-size:16px}.bubble{font-size:22px}.hero .av{width:92px;height:92px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><span class="av" aria-hidden="true"></span><b>Mono Virtual</b><span>· Monolegal</span></div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="scene" aria-hidden="true">
+      <div class="bubble">
+        <svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M12 8 Q100 -2 188 8 Q198 30 186 54 Q120 62 70 58 L44 76 L50 57 Q14 56 10 34 Q6 18 12 8Z" fill="#FFFFFF" stroke="#191918" stroke-width="2.2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+        <span>¡Gracias por probarme!</span>
+      </div>
+      <span class="av"></span>
+    </div>
+    <p class="badge">Guía de prueba · unos 15 minutos</p>
+    <h1>Tu caso, <span class="hl">ordenado</span> con un solo comando</h1>
+    <p class="lead">Mono Virtual lee la carpeta de un caso, tu WhatsApp con el cliente y tu correo, y te dice en qué fase está y cuál es el siguiente paso, listo para que se lo cuentes a tu cliente.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Qué vas a probar</p>
+    <h2>Lo que hace por ti</h2>
+    <div class="trio">
+      <div><b>Lee y ordena</b><p>Revisa los documentos de la carpeta por su fecha real, descarta la jurisprudencia y la normativa, y lee tu WhatsApp y tus correos con el cliente.</p></div>
+      <div><b>Te cuenta el caso</b><p>Un resumen de la historia, la fase actual y el siguiente paso, con las fuentes de las que lo saca.</p></div>
+      <div><b>Tú decides</b><p>Lo revisas y lo corriges en una página. Nada se comparte con tu cliente en esta prueba.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kicker" style="--k:#1F6FC5">Antes de empezar</p>
+    <h2>Ten esto a mano</h2>
+    <ul class="check">
+      <li><div><b>La app de escritorio de Claude, actualizada, con Cowork</b><p>En Windows o Mac, con un plan Pro, Max, Team o Enterprise. Mono Virtual trabaja en una tarea de Cowork, no en un chat normal.</p></div></li>
+      <li><div><b>Tu cuenta de Monolegal</b><p>Con tu usuario y contraseña: la usarás para conectar Mono Virtual.</p></div></li>
+      <li><div><b>Tu privacidad revisada</b><p>En <span class="ruta">Ajustes › Privacidad</span>, comprueba que está desactivada la opción de usar tus conversaciones para mejorar los modelos.</p></div></li>
+      <li><div><b>Un caso real que conozcas bien</b><p>Con su carpeta y los documentos dentro: autos, decretos, escritos, PDF de LexNET, Word… Así podrás juzgar si acierta.</p><p class="consejo">Puede estar en tu ordenador o en Google Drive (en Windows, la unidad G:): conéctala tal cual, sin copiarla. El mono trae solo los documentos que necesita.</p></div></li>
+      <li><div><b>El chat de WhatsApp con ese cliente, exportado a la carpeta</b><p>Te explicamos cómo en el paso 4. Si hablas con él desde dos teléfonos, exporta los dos chats.</p></div></li>
+      <li><div><b>Gmail conectado a Claude</b><span class="opcional">Opcional</span><p>Si lo tienes, Mono Virtual leerá tus correos con el cliente y los que te reenvía tu procurador.</p></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="kicker" style="--k:#C2610C">Paso a paso</p>
+    <h2>Cómo usarlo</h2>
+    <ol class="pasos">
+      <li><div>
+        <h3>Instala el plugin</h3>
+        <p>En la app de Claude, ve a <span class="ruta">Personalizar › Plugins</span> (<em>Customize › Plugins</em>), añade el marketplace de Monolegal, <code>foundersmonolegal/monolegal-plugins</code>, e instala <b>Mono Secretario</b>. Así recibirás las versiones nuevas.</p>
+        <p class="consejo">Si no puedes usar el marketplace, en <span class="ruta">Personalizar › Plugins › Añadir › Subir plugin</span> (<em>Customize › Plugins › Add › Upload plugin</em>) elige el archivo <code>mono-secretario.zip</code> que te hemos enviado, sin descomprimirlo.</p>
+        <p>Después, en una tarea de Cowork, escribe <code>/mono-secretario:inicia</code>: el mono comprueba que todo está conectado y te abre esta guía.</p>
+      </div></li>
+      <li><div>
+        <h3>Conecta Mono Virtual</h3>
+        <p>En <span class="ruta">Personalizar › Plugins</span>, abre <b>Mono Secretario</b>, entra en su pestaña <span class="ruta">Conectores</span> (<em>Connectors</em>) y conecta <b>Mono Virtual</b>. Inicia sesión con tu cuenta de Monolegal.</p>
+        <p class="consejo">Si te pide un identificador de cliente (<em>Client ID</em>), escribe <code>claude</code>.</p>
+      </div></li>
+      <li><div>
+        <h3>Conecta Gmail <span class="opcional">Opcional</span></h3>
+        <p>En <span class="ruta">Personalizar › Conectores</span>, conecta Gmail con tu cuenta. Mono Virtual solo lee: nunca envía, responde ni borra correos.</p>
+        <p class="consejo">Si la ficha del conector te deja elegir herramientas, deja activas solo las de buscar y leer y desactiva las de enviar, responder, reenviar, borradores y papelera. Así no se puede enviar nada aunque alguien lo pidiera en un correo.</p>
+      </div></li>
+      <li><div>
+        <h3>Exporta el WhatsApp con tu cliente a la carpeta del caso</h3>
+        <div class="dos">
+          <div><b>iPhone</b>Abre el chat › toca el nombre del cliente › <em>Exportar chat</em> › <em>Sin archivos</em>.</div>
+          <div><b>Android</b>Abre el chat › ⋮ › <em>Más</em> › <em>Exportar chat</em> › <em>Sin archivos</em>.</div>
+        </div>
+        <p>Envíatelo por correo o guárdalo en Drive y déjalo, tal cual (<code>.txt</code> o <code>.zip</code>), dentro de la carpeta del caso. No hace falta cambiarle el nombre.</p>
+      </div></li>
+      <li><div>
+        <h3>Abre una tarea nueva de Cowork y conecta esa carpeta</h3>
+        <p>Usa una tarea nueva para cada caso. Al conectar la carpeta, elige la del caso (o la carpeta donde guardas todos tus casos: te preguntará cuál es). Mantén la app abierta mientras trabaja.</p>
+      </div></li>
+      <li><div>
+        <h3>Pide al mono que ordene el caso</h3>
+        <p>En la tarea, escribe <code>/mono-secretario:ordenar-caso</code> y pulsa Intro. También puedes pedírselo con tus palabras: <em>“ordena este caso”</em>.</p>
+      </div></li>
+      <li><div>
+        <h3>Responde a su pregunta</h3>
+        <p>Te pedirá el nombre del cliente (tal como aparece en los documentos) y, si lo tienes, su correo. No necesita el número del caso: lo saca de los documentos.</p>
+        <p>Si Claude te pide permiso para usar la carpeta o el correo, acéptalo: solo lee, y escribe sus archivos de trabajo en una subcarpeta <code>.monolegal</code> dentro del caso.</p>
+      </div></li>
+      <li><div>
+        <h3>Revisa la página que se abre a la derecha</h3>
+        <ul>
+          <li><b>En pocas palabras:</b> la historia del caso. ¿La reconoces?</li>
+          <li><b>Así lo he deducido:</b> qué ha leído y en qué fuentes se basa.</li>
+          <li><b>Fase actual</b> y <b>siguiente paso</b>: qué toca, a quién le toca y el plazo que dice la resolución. Puedes cambiarlos.</li>
+          <li><b>Lo que verá tu cliente:</b> las últimas actuaciones como las vería en su app. Desactiva lo que no quieras compartir y retoca el texto.</li>
+        </ul>
+        <p>Si no se abre el panel, abre el archivo <code>.monolegal/revision.html</code> de la carpeta del caso con doble clic.</p>
+      </div></li>
+      <li><div>
+        <h3>Confirma</h3>
+        <p>Pulsa <b>Confirmar y copiar para Claude</b> y pega el resultado en el chat de la tarea. El mono lo guarda en su memoria (Mono Virtual) para que tu cliente lo vea en su app, y te lo confirma en el panel. <span class="mano">¡Listo!</span></p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="kicker" style="--k:#0F7B6C">Tus datos</p>
+    <h2>Qué pasa con la información de tu cliente</h2>
+    <div class="datos">
+      <ul>
+        <li><b>Documentos y WhatsApp:</b> antes de que la IA lea nada, un programa sustituye los nombres, DNI, teléfonos, correos, cuentas bancarias y direcciones por claves como <code>[CLIENTE]</code>. La tabla con los datos reales se guarda aparte y Claude nunca la lee.</li>
+        <li><b>Correos:</b> en esta prueba, Claude los lee tal cual, sin sustituir nada.</li>
+        <li><b>Nombre del cliente:</b> el que escribes en el chat, y los nombres de tus carpetas, sí los ve Claude.</li>
+        <li><b>La página de revisión</b> te muestra los nombres reales solo a ti. Al confirmar, los vuelve a cambiar por claves.</li>
+        <li><b>Lo que llega a la app de tu cliente</b> es solo lo que confirmas: su nombre, la fase, el siguiente paso y las actuaciones que dejaste visibles, escritas para él y sin otros datos personales.</li>
+        <li><b>Para mejorar el mono</b> se envían también los tiempos de cada paso y cuántos documentos y mensajes se han leído, sin datos personales.</li>
+        <li>Cuando termines puedes borrar la subcarpeta <code>.monolegal</code>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <p class="kicker" style="--k:#DFAB01">Ten en cuenta</p>
+    <h2>Lo que todavía no hace</h2>
+    <ul class="limites">
+      <li>Está pensado para juzgados de la Comunitat Valenciana.</li>
+      <li>No calcula plazos: copia el que dice la resolución y la fecha límite la pones tú.</li>
+      <li>No lee PDF escaneados sin texto, notas de voz de WhatsApp ni adjuntos de los correos. Te avisará si los encuentra.</li>
+      <li>Ordena un caso cada vez.</li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="kicker" style="--k:#C9372C">Si algo falla</p>
+    <h2>Problemas frecuentes</h2>
+    <details><summary>No aparece el comando /mono-secretario:ordenar-caso</summary><p>Comprueba en Personalizar › Plugins que Mono Secretario está instalado y abre una tarea de Cowork nueva. También puedes escribir “ordena este caso”.</p></details>
+    <details><summary>Dice que no puede leer mi carpeta</summary><p>Comprueba que la conectaste con Añadir carpeta en esta tarea (vale la de Google Drive tal cual) y que Google Drive está abierto en tu ordenador. Después, pídele que lo intente de nuevo.</p></details>
+    <details><summary>Dice que no hay WhatsApp</summary><p>Comprueba que el archivo exportado está dentro de la carpeta del caso (no en Descargas) y díselo a Claude: volverá a mirar.</p></details>
+    <details><summary>Dice que hay varios casos en la carpeta</summary><p>Pasa cuando una carpeta tiene documentos de más de un procedimiento. Te enseñará los que ha encontrado: elige el tuyo.</p></details>
+    <details><summary>No se abre la página en el panel</summary><p>Abre <code>.monolegal/revision.html</code> desde la carpeta del caso con doble clic; funciona igual en tu navegador.</p></details>
+    <details><summary>No puede leer el correo</summary><p>Vuelve a conectar Gmail en Personalizar › Conectores y acepta los permisos que pida Google. Si no, Mono Virtual sigue solo con la carpeta y el WhatsApp.</p></details>
+    <details><summary>No consigo conectar Mono Virtual</summary><p>Inicia sesión con tu usuario y contraseña de Monolegal y, si te pide un identificador de cliente, escribe <code>claude</code>. Si sigue fallando, avisa a quien te envió el plugin.</p></details>
+  </section>
+
+  <section>
+    <p class="kicker">Tu opinión</p>
+    <h2>Lo que nos ayuda de verdad</h2>
+    <p class="sub">Al terminar, responde con sinceridad, aunque sean dos palabras, a quien te envió esta guía:</p>
+    <ol class="preguntas">
+      <li>¿Acertó la <b>fase actual</b>? Si no, ¿cuál era?</li>
+      <li>¿Acertó el <b>siguiente paso</b> y a quién le toca?</li>
+      <li>Al leer el <b>resumen</b>, ¿reconociste tu caso a la primera?</li>
+      <li>¿Qué tuviste que <b>corregir</b> antes de confirmar?</li>
+      <li>¿Cuánto tardó, y cuántas veces tuviste que intervenir?</li>
+      <li>¿Le enseñarías a tu cliente lo que aparece en <b>Lo que verá tu cliente</b>?</li>
+      <li>¿Qué echaste en falta, o qué te sobró?</li>
+    </ol>
+    <p class="sub">Si mandas capturas de pantalla, tapa antes los datos de tu cliente.</p>
+  </section>
+
+  <section class="cierre">
+    <span class="mano">Gracias por tu tiempo</span>
+    <p>Mono Virtual · Monolegal · versión de prueba</p>
+  </section>
+</main>
+
+</body>
+</html>

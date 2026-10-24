@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "Mono_Virtual": {
+      "type": "http",
+      "url": "https://api.aiworkforce.monolegal.com/mcp",
+      "oauth": {
+        "clientId": "claude"
+      }
+    }
+  }
+}

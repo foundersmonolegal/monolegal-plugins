@@ -1,0 +1,8 @@
+{
+  "name": "monolegal",
+  "owner": { "name": "Monolegal", "email": "founders@monolegal.co" },
+  "metadata": { "description": "Plugins de Monolegal para abogados." },
+  "plugins": [
+    { "name": "mono-secretario", "source": "./plugins/mono-secretario" }
+  ]
+}
