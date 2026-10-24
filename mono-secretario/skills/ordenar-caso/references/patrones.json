@@ -1,0 +1,245 @@
+{
+  "_descripcion": "Reglas deterministas del plugin de casos (Comunitat Valenciana). Las usa scripts/identificar_caso.py y Claude puede leerlas si no hay script. Expresiones regulares en sintaxis de Python. Fuente: skill_ordenar_caso_16102026.investigacion.md.",
+  "version": 1,
+  "limites": {
+    "zona_cabecera": 1500,
+    "cabeza": 3500,
+    "cola": 4500,
+    "texto_minimo_legible": 80,
+    "paginas_cabeza": 2,
+    "max_archivos": 600,
+    "max_mb_por_archivo": 50,
+    "whatsapp_ultimos": 80
+  },
+  "nig": {
+    "etiqueta": "\\bN\\.?\\s?I\\.?\\s?G\\.?(?![A-Za-z])",
+    "formato": "^(\\d{5})(\\d{2})([0-9A-Z])((?:19|20)\\d{2})(\\d{7})",
+    "ventana": 45
+  },
+  "procedimiento": [
+    "(?:Procedimiento|Procediment|Autos|Rollo|Ejecuci[óo]n|Execuci[óo])\\b\\s*:?\\s*(?P<nombre>[^\\[\\n]{0,80}?)\\s*\\[(?P<abrev>[A-Z0-9]{1,6})\\](?:\\s*\\[[A-Z0-9]{1,6}\\])*(?:\\s*\\([^)]{1,20}\\))?[\\s\\-\\u00ad\\u2010-\\u2014]*(?:N[º°o]\\.?\\s*:?\\s*)?0*(?P<num>\\d{1,7})/(?P<anio>(?:19|20)\\d{2})(?:-(?P<letra>[A-Z]{1,2}))?",
+    "(?:Procedimiento|Procediment|Autos|Juicio|Judici|Juí)\\b(?P<nombre>[^\\n]{0,80}?)(?:n[º°o]\\.?|núm\\.?|número|num\\.?)\\s*0*(?P<num>\\d{1,7})/(?P<anio>(?:19|20)\\d{2})"
+  ],
+  "jurisprudencia": {
+    "marcas_fuertes": [
+      "\\bRoj:\\s*[A-Z]{2,5}(?:\\s+[A-Z]{1,3})?\\s+\\d+/\\d{4}",
+      "\\bECLI:\\s?ES:\\s?[A-Z]{1,10}:\\s?\\d{4}:\\s?\\d+A?\\b",
+      "\\bId\\s+Cendoj:\\s*\\d{20}\\b"
+    ],
+    "bases_comerciales": [
+      "\\b(?:RJ|JUR|RTC|ARP)\\s?\\d{4}\\\\d+",
+      "\\bEDJ\\s?\\d{4}/\\d+",
+      "\\bTOL\\s?\\d{1,2}(?:\\.\\d{3})+",
+      "\\bLA LEY\\s\\d+/\\d{4}",
+      "\\bvLex\\b",
+      "Aranzadi Instituciones",
+      "Tirant Online"
+    ],
+    "nombres_carpeta": [
+      "jurisprudencia",
+      "jurisprud",
+      "doctrina",
+      "sentencias de referencia"
+    ]
+  },
+  "normativa": [
+    "BOLET[ÍI]N OFICIAL DEL ESTADO",
+    "DIARI OFICIAL DE LA GENERALITAT",
+    "DIARIO OFICIAL DE LA GENERALITAT",
+    "\\bBOE-A-\\d{4}-\\d+\\b",
+    "Texto consolidado",
+    "BOLET[ÍI]N OFICIAL DE LA PROVINCIA"
+  ],
+  "escrito_parte": {
+    "inicio": "^\\s*(?:AL|A\\s+LA|A\\s+L[AO]S)\\s+(?:EXCM[OA]\\.?\\s+|ILM[OA]\\.?\\s+)?(?:JUZGADO|TRIBUNAL|SECCI[ÓO]N|SALA|AUDIENCIA|JUTJAT|AUDI[ÈE]NCIA)\\b",
+    "formulas": [
+      "\\bSUPLICO\\b",
+      "\\bSUPLICA\\b",
+      "\\bSUPLIQUE\\b",
+      "\\bOTROS[IÍ]\\s+DIGO\\b",
+      "\\bEXPONGO\\b"
+    ]
+  },
+  "tipos_resolucion": {
+    "diligencia_ordenacion": [
+      "DILIGENCIA DE ORDENACI[ÓO]N",
+      "DIL[ÍI]G[ÈE]NCIA D['’]ORDENACI[ÓO]"
+    ],
+    "auto": [
+      "AUTO",
+      "INTERLOCUT[ÒO]RIA"
+    ],
+    "sentencia": [
+      "SENTENCIA",
+      "SENT[ÈE]NCIA"
+    ],
+    "providencia": [
+      "PROVIDENCIA",
+      "PROVID[ÈE]NCIA",
+      "PROVISI[ÓO]"
+    ],
+    "decreto": [
+      "DECRETO",
+      "DECRET"
+    ],
+    "cedula": [
+      "C[ÉÈ]DULA DE [A-ZÁÉÍÓÚÀÈÒÇ ]{4,40}"
+    ],
+    "acta": [
+      "ACTA DE [A-ZÁÉÍÓÚÀÈÒÇ ]{4,40}"
+    ],
+    "mandamiento": [
+      "MANDAMIENTO",
+      "MANAMENT"
+    ],
+    "resolucion_administrativa": [
+      "RESOLUCI[ÓO]N(?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?",
+      "RESOLUCI[ÓO](?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?"
+    ],
+    "requerimiento": [
+      "REQUERIMIENTO(?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?",
+      "REQUERIMENT(?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?"
+    ]
+  },
+  "titulo_resolucion": "^\\s*(?P<tipo>DILIGENCIA DE ORDENACI[ÓO]N|DIL[ÍI]G[ÈE]NCIA D['’]ORDENACI[ÓO]|AUTO|INTERLOCUT[ÒO]RIA|SENTENCIA|SENT[ÈE]NCIA|PROVIDENCIA|PROVID[ÈE]NCIA|PROVISI[ÓO]|DECRETO|DECRET|C[ÉÈ]DULA DE [A-ZÁÉÍÓÚÀÈÒÇ ]{4,40}|ACTA DE [A-ZÁÉÍÓÚÀÈÒÇ ]{4,40}|MANDAMIENTO|MANAMENT|RESOLUCI[ÓO]N(?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?|RESOLUCI[ÓO](?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?|REQUERIMIENTO(?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?|REQUERIMENT(?: DE [A-ZÁÉÍÓÚÀÈÒÑÇ ]{3,40})?)\\b[^\\n]{0,40}$",
+  "organo": [
+    "(?:Secci[óo]n|Secció)\\s+(?:Civil|de lo Penal|penal|de lo Social|social|de lo Contencioso[^\\n]{0,30}|del Contenci[óo]s[^\\n]{0,30}|de Familia[^\\n]{0,30}|de Fam[íi]lia[^\\n]{0,30}|de Instrucci[óo]n|d'Instrucci[óo]|del? Mercantil)[^\\n]{0,120}",
+    "(?:Juzgado|Jutjat)\\s+de\\s+[^\\n]{3,120}",
+    "Audiencia Provincial[^\\n]{0,80}",
+    "Audi[èe]ncia Provincial[^\\n]{0,80}",
+    "Tribunal Superior de Justicia[^\\n]{0,80}",
+    "Oficina de Extranjer[ií]a[^\\n]{0,80}",
+    "Unidad de Grandes Empresas[^\\n]{0,80}",
+    "Subdelegaci[óo]n del Gobierno[^\\n]{0,80}",
+    "Delegaci[óo]n del Gobierno[^\\n]{0,80}",
+    "Ministerio de [^\\n]{3,80}",
+    "Ayuntamiento de [^\\n]{2,60}",
+    "Ajuntament de [^\\n]{2,60}",
+    "Conselleria de [^\\n]{3,80}"
+  ],
+  "jurisdicciones": {
+    "administrativo": [
+      "extranjer",
+      "grandes empresas",
+      "subdelegaci",
+      "delegación del gobierno",
+      "delegacion del gobierno",
+      "ministerio",
+      "ayuntamiento",
+      "ajuntament",
+      "conselleria"
+    ],
+    "social": [
+      "social"
+    ],
+    "contencioso": [
+      "contencioso",
+      "contenciós"
+    ],
+    "penal": [
+      "penal",
+      "instrucción",
+      "instruccion",
+      "instrucció",
+      "violencia"
+    ],
+    "familia": [
+      "familia",
+      "família"
+    ],
+    "civil": [
+      "civil",
+      "primera instancia",
+      "primera instància",
+      "mercantil"
+    ]
+  },
+  "partes": "^\\s*(?P<rol>Demandante|Demandant|Demandado|Demandada|Demandat|Demandada|Parte actora|Parte demandada|Actora|Actor|Recurrente|Recurrido|Recurrida|Apelante|Apelado|Apelada|Ejecutante|Ejecutado|Ejecutada|Executant|Executat|Acusado|Acusada|Investigado|Investigada|Denunciante|Querellante|Solicitante|De|Contra)\\s*:\\s*(?P<nombre>[^\\n]{2,120})$",
+  "posicion": {
+    "activa": [
+      "demandante",
+      "demandant",
+      "parte actora",
+      "actora",
+      "actor",
+      "recurrente",
+      "apelante",
+      "ejecutante",
+      "executant",
+      "denunciante",
+      "querellante",
+      "solicitante",
+      "de"
+    ],
+    "pasiva": [
+      "demandado",
+      "demandada",
+      "demandat",
+      "parte demandada",
+      "recurrido",
+      "recurrida",
+      "apelado",
+      "apelada",
+      "ejecutado",
+      "ejecutada",
+      "executat",
+      "acusado",
+      "acusada",
+      "investigado",
+      "investigada",
+      "contra"
+    ]
+  },
+  "meses": {
+    "enero": 1,
+    "febrero": 2,
+    "marzo": 3,
+    "abril": 4,
+    "mayo": 5,
+    "junio": 6,
+    "julio": 7,
+    "agosto": 8,
+    "septiembre": 9,
+    "setiembre": 9,
+    "octubre": 10,
+    "noviembre": 11,
+    "diciembre": 12,
+    "gener": 1,
+    "febrer": 2,
+    "març": 3,
+    "marc": 3,
+    "maig": 5,
+    "juny": 6,
+    "juliol": 7,
+    "agost": 8,
+    "setembre": 9,
+    "novembre": 11,
+    "desembre": 12
+  },
+  "fecha_texto": [
+    "(?P<lugar>[A-ZÀ-Ý][^\\W\\d_][^,\\n]{0,40}),\\s*(?:a\\s+)?(?P<d>\\d{1,2})\\s+(?:de\\s+|d['’]\\s?)(?P<mes>septiembre|setiembre|noviembre|diciembre|setembre|novembre|desembre|febrero|octubre|agosto|febrer|juliol|enero|marzo|abril|junio|julio|gener|agost|mayo|març|marc|maig|juny)\\s+(?:de\\s+)?(?P<a>(?:19|20)\\d{2})",
+    "\\b(?P<d>\\d{1,2})\\s+(?:de\\s+|d['’]\\s?)(?P<mes>septiembre|setiembre|noviembre|diciembre|setembre|novembre|desembre|febrero|octubre|agosto|febrer|juliol|enero|marzo|abril|junio|julio|gener|agost|mayo|març|marc|maig|juny)\\s+(?:de\\s+)?(?P<a>(?:19|20)\\d{2})\\b"
+  ],
+  "fecha_nombre": [
+    "(?<!\\d)(?P<a>(?:19|20)\\d{2})[-_. ]?(?P<m>0[1-9]|1[0-2])[-_. ]?(?P<d>0[1-9]|[12]\\d|3[01])(?!\\d)",
+    "(?<!\\d)(?P<d>0?[1-9]|[12]\\d|3[01])[-_.](?P<m>0?[1-9]|1[0-2])[-_.](?P<a>(?:19|20)\\d{2})(?!\\d)"
+  ],
+  "lexnet_archivo": "^(?P<anio>(?:19|20)\\d{2})_(?P<num>\\d{1,7})_(?P<tipo>[A-Z0-9]{1,6})_(?P<id>(?:19|20)\\d{13})_?(?P<ts>(?:19|20)\\d{12})_(?P<seq>\\d{3})_(?P<desc>.*?)(?:\\.(?P<ext>[A-Za-z0-9]{2,5}))?$",
+  "pie_recursos": "(?:Contra\\s+(?:esta|la presente|dicha)\\s+resoluci[óo]n|Contra\\s+(?:este|el presente)\\s+(?:auto|decreto)|Contra\\s+la\\s+present|Contra\\s+aquesta|MODO DE IMPUGNACI[ÓO]N|Frente a (?:esta|la presente) resoluci[óo]n|Esta resoluci[óo]n es firme|Aquesta resoluci[óo] [ée]s ferma)[^\\n]{0,500}",
+  "requerimientos": "(?:se requiere|requi[ée]rase|se emplaza|empl[áa]cese|d[ée]se traslado|se da traslado|se cita|c[íi]tese|se se[ñn]ala|se convoca|se acuerda|se admite)[^.\\n]{0,300}",
+  "nombres_resolucion": [
+    "auto",
+    "sentencia",
+    "decreto",
+    "providencia",
+    "diligencia",
+    "cedula",
+    "acta",
+    "mandamiento",
+    "requerimiento",
+    "resolucion",
+    "notificacion",
+    "citacion",
+    "emplazamiento"
+  ]
+}
