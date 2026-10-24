@@ -8,11 +8,11 @@ Este repositorio es el marketplace de Monolegal: desde aquí se instalan sus plu
 
 ## Instalar
 
-- **Cowork:** en Customize > Plugins, añade el marketplace `Monolegal/monolegal-plugins` e instala el plugin.
+- **Cowork:** en Customize > Plugins, añade el marketplace `foundersmonolegal/monolegal-plugins` e instala el plugin.
 - **Claude Code:**
 
   ```
-  claude plugin marketplace add Monolegal/monolegal-plugins
+  claude plugin marketplace add foundersmonolegal/monolegal-plugins
   claude plugin install mono-secretario@monolegal
   ```
 

@@ -5,11 +5,11 @@
   "description": "Ordena el desorden de un caso: lee la carpeta del caso, el WhatsApp con el cliente y el correo, oculta los datos personales, detecta el caso, descarta la jurisprudencia y muestra la fase actual, el siguiente paso y las últimas actuaciones para revisarlas antes de compartirlas con el cliente. Después puede enviarle el acceso a su caso en la app del móvil.",
   "author": { "name": "Monolegal", "url": "https://app.monosvirtuales.monolegal.com" },
   "homepage": "https://app.monosvirtuales.monolegal.com",
-  "repository": "https://github.com/Monolegal/monolegal-plugins",
+  "repository": "https://github.com/foundersmonolegal/monolegal-plugins",
   "license": "LicenseRef-Monolegal-Proprietary",
   "keywords": ["abogados", "casos", "whatsapp", "plazos", "app del cliente"],
   "icon": "./assets/logo.png",
-  "documentationUrl": "https://github.com/Monolegal/monolegal-plugins/tree/main/plugins/mono-secretario",
+  "documentationUrl": "https://github.com/foundersmonolegal/monolegal-plugins/tree/main/plugins/mono-secretario",
   "supportUrl": "https://app.monosvirtuales.monolegal.com/soporte",
   "privacyPolicyUrl": "https://app.monosvirtuales.monolegal.com/privacidad",
   "termsOfServiceUrl": "https://app.monosvirtuales.monolegal.com/terminos"

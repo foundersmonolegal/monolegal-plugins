@@ -10,9 +10,9 @@ Instala el plugin y escribe `/mono-secretario:inicia` en una tarea de Cowork. El
 
 ## Cómo se usa
 
-1. Instala el plugin desde el marketplace de Monolegal (repositorio de GitHub `Monolegal/monolegal-plugins`):
+1. Instala el plugin desde el marketplace de Monolegal (repositorio de GitHub `foundersmonolegal/monolegal-plugins`):
    - **Cowork:** en Customize > Plugins, añade ese marketplace e instala **Mono Secretario**.
-   - **Claude Code:** `claude plugin marketplace add Monolegal/monolegal-plugins` y después `claude plugin install mono-secretario@monolegal`.
+   - **Claude Code:** `claude plugin marketplace add foundersmonolegal/monolegal-plugins` y después `claude plugin install mono-secretario@monolegal`.
    - Si no puedes usar GitHub: **Customize > Plugins > Add > Upload plugin** con `mono-secretario.zip`.
 2. En la pestaña **Connectors** del plugin, conecta **Mono Virtual** con tu cuenta de Monolegal. Si pide un identificador de cliente, escribe `claude`.
 3. Opcional: conecta **Gmail** en Customize > Connectors. Si la ficha lo permite, deja activas solo las herramientas de lectura.
