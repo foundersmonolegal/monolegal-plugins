@@ -1,7 +1,7 @@
 {
   "name": "mono-secretario",
   "displayName": "Mono Secretario",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Ordena un caso a partir de su carpeta, el WhatsApp con el cliente y el correo: oculta los datos personales, muestra la fase actual, el siguiente paso y las últimas actuaciones para revisarlas y las comparte con el cliente en su app. Envía al cliente el acceso a su caso y, cuando vuelves de estar ocupado, te resume lo que pasó en el WhatsApp del despacho para confirmar o enviar las respuestas del mono.",
   "author": { "name": "Monolegal", "url": "https://app.monosvirtuales.monolegal.com" },
   "homepage": "https://app.monosvirtuales.monolegal.com",

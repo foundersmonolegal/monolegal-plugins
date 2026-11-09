@@ -1,6 +1,6 @@
 ---
 name: enviar-acceso
-description: Envía al cliente del abogado el acceso a su caso en la app del móvil. Le manda un correo con el enlace y el código, guarda su teléfono para que el mono le reconozca por WhatsApp y deja listo el mensaje para compartirlo por WhatsApp. Úsala cuando el abogado pida enviar, mandar o compartir el acceso, el código o la app con su cliente (por ejemplo "envía el acceso a mi cliente del caso X"), o cuando acepte la oferta que le hace ordenar-caso al guardar un caso.
+description: Envía al cliente del abogado el acceso a su caso en la app del móvil. Le manda un correo con el enlace y el código, guarda su teléfono para que el mono le reconozca por WhatsApp y deja listo el mensaje para compartirlo por WhatsApp. Úsala cuando el abogado pida enviar, mandar o compartir el acceso, el código o la app con su cliente (por ejemplo "envía el acceso a mi cliente del caso X"), o cuando acepte la oferta que le hace ordenar-caso al guardar un caso o que-ha-pasado ante un número desconocido.
 ---
 
 # Enviar el acceso al cliente
@@ -9,7 +9,7 @@ Objetivo: que el cliente del abogado vea su caso en el móvil y que el mono le r
 
 ## Reglas (obligatorias)
 
-1. **Nunca inventes el correo ni el teléfono del cliente.** Solo sirven los que te ha escrito el abogado o los que salen de la tabla del caso con el script (pasos 2 y 3). Si no tienes correo, pregúntalo; el teléfono es opcional.
+1. **Nunca inventes el correo ni el teléfono del cliente.** Solo sirven los que te ha escrito el abogado, el teléfono de un número desconocido que devolvió `obtener_contactos` y el abogado reconoció como de este cliente, o los que salen de la tabla del caso con el script (pasos 2 y 3). Si no tienes correo, pregúntalo; el teléfono es opcional.
 2. **Nunca envíes una clave (`[EMAIL_n]` o `[TEL_n]`) al MCP.** Una clave no es un dato. Si el correo o el teléfono que vas a enviar contiene `[` o `]`, para: has confundido la clave con su valor.
 3. **No llames a `enviar_codigo_acceso` sin la confirmación explícita del abogado sobre el correo y el teléfono** (paso 4). Cada llamada que sale bien envía un correo: no la repitas si ya salió bien.
 4. **Nunca leas `datos_personales.json`.** El correo y el teléfono reales solo los obtienes con `correo_cliente.py`, que devuelve únicamente el de la clave que le pidas.
@@ -37,7 +37,7 @@ Busca el correo por este orden y para en el primero que lo dé:
 
 Es el teléfono desde el que el cliente escribe al abogado por WhatsApp: con él, el mono le reconoce y le responde en su app. Búscalo igual que el correo y para en el primero que lo dé:
 
-1. **El abogado ya te lo ha escrito** en esta conversación: propón ese.
+1. **El abogado ya te lo ha escrito** en esta conversación, o **vienes de `que-ha-pasado`** con el teléfono de un número desconocido que el abogado reconoció como de este cliente: propón ese.
 2. **La tabla del caso**, con las claves `[TEL_n]` que listó el script en el paso 2: decide con los hechos anonimizados cuál es del cliente (en el WhatsApp exportado suele ser el de `[CLIENTE]`; no confundas el del procurador, el juzgado o la contraparte) y pídele al script solo esa clave: `python3 "${CLAUDE_SKILL_DIR}/../ordenar-caso/scripts/correo_cliente.py" "<caso>" --clave "[TEL_n]"`. Si sale con `"ok": false`, trata el caso como sin teléfono.
 3. **Si no hay ninguno o no sabes cuál es:** no lo preguntes aparte; ofrécelo en la confirmación del paso 4 como opcional.
 
