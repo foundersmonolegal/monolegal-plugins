@@ -26,6 +26,8 @@ Un solo mensaje, cercano y corto:
 > 3. **Te enseño lo que he entendido**: en qué fase está, cuál es el siguiente paso y lo que verá tu cliente. Tú lo corriges y lo confirmas.
 > 4. **Lo guardo en mi memoria** para que tu cliente lo vea en su app.
 >
+> Cuando estés ocupado, pregúntame **"Mono, ¿ha pasado algo importante?"**. Desde el móvil, activa el modo de voz de la app de Claude y pregúntamelo hablando: te contesto en voz alta.
+>
 > Tienes la guía completa en el panel de la derecha.
 
 Si en esta tarea ya hay una carpeta conectada, termina preguntando: "¿Organizamos ahora este caso?". Si dice que sí, sigue con la skill `ordenar-caso`.
