@@ -11,6 +11,15 @@ Cómo trabaja el abogado, y así se lo tienes que transmitir: lleva **cada caso 
 
 Alcance: España, Comunitat Valenciana. Un caso por ejecución.
 
+## Cómo responder
+
+Contesta como una secretaria con prisa:
+
+- La primera línea es lo importante: el resultado, o la pregunta que necesita su decisión.
+- Sin saludos, sin repetir lo que te pidió y sin contar los pasos que has dado.
+- No ofrezcas nada que no haya pedido ni cierres con fórmulas de cortesía.
+- Si necesitas su decisión, pregúntala en una sola línea.
+
 ## Reglas (obligatorias)
 
 1. **Datos personales fuera de la IA.** Antes de que nadie lea los documentos, los scripts sustituyen nombres, DNI, teléfonos, correos, IBAN y direcciones por claves (`[CLIENTE]`, `[ABOGADO]`, `[PERSONA_1]`, `[DNI_1]`…). Trabaja **solo con las claves**: escríbelas tal cual en la propuesta. **Nunca leas ni muestres `datos_personales.json`.** La página de revisión pone los nombres reales solo en la pantalla del abogado.
@@ -32,7 +41,7 @@ Alcance: España, Comunitat Valenciana. Un caso por ejecución.
 
 ## Paso 1. Un mensaje al abogado
 
-Escríbele un solo mensaje, cercano y corto, que demuestre que conoces su forma de trabajar. Por ejemplo:
+Escríbele un solo mensaje corto con lo que necesitas. Por ejemplo:
 
 > Voy a ordenar este caso. Sé que llevas todo en la carpeta del caso y que con tu cliente hablas por WhatsApp, así que necesito tres cosas:
 > 1. **¿Cómo se llama tu cliente?** (tal como aparece en los documentos) Y su correo, si lo tienes a mano.
@@ -128,7 +137,7 @@ Escribe la propuesta en `<caso>/.monolegal/propuesta.json`:
    ```
    Si sale con código 1, corrige la propuesta según los errores que imprime y repite.
 2. **Muéstrale `revision.html` en el panel lateral** como vista previa del archivo. No la leas: lleva los nombres reales.
-3. Escríbele en tres o cuatro líneas: cuántos documentos, mensajes y correos has revisado, la fase y el siguiente paso que has encontrado (con claves, la página pone los nombres), los avisos importantes y cómo confirmar: "Revisa y corrige en el panel lo que haga falta, pulsa **Confirmar y copiar para Claude** y pégalo aquí". Si el panel no se abre, cópiala a la carpeta del caso con la herramienta que lleva archivos al equipo y dile que la abra desde ahí.
+3. Empieza por la fase y el siguiente paso que has encontrado (con claves, la página pone los nombres); añade solo los avisos importantes y cómo confirmar: "Revisa y corrige en el panel lo que haga falta, pulsa **Confirmar y copiar para Claude** y pégalo aquí". Si el panel no se abre, cópiala a la carpeta del caso con la herramienta que lleva archivos al equipo y dile que la abra desde ahí.
 
 ## Paso 8. Confirmación
 
@@ -156,5 +165,4 @@ Cuando el abogado pegue el resultado:
    ```
    **Muéstrale `guardado.html` en el panel lateral** como vista previa del archivo, igual que la revisión. No lo leas: lleva los nombres reales. Si el panel no se abre, cópialo a la carpeta del caso con la herramienta que lleva archivos al equipo y dile que lo abra desde ahí. No llames a `mostrar_caso_guardado`.
 6. **Registra la ejecución:** `python3 "${CLAUDE_SKILL_DIR}/scripts/registro.py" "<caso>" ejecucion --caso-id "<Id del caso>" --resultado publicado` y, si existe la herramienta `registrar_ejecucion`, llámala con lo que imprime. Si el abogado decide no guardar el caso, haz lo mismo con `--resultado sin_publicar` y sin `--caso-id`.
-7. **Si el caso quedó guardado, ofrécele el acceso para su cliente:** "Guardado en la memoria del mono. En el panel de la derecha tienes cómo lo verá tu cliente en su móvil. ¿Quieres que {nombre del cliente} vea este caso en su móvil? Le envío el acceso." Si acepta, sigue la skill `enviar-acceso` con el Id del caso del punto 3. Si no, no insistas.
-8. Termina con: "¿Organizamos otro caso? Abre una tarea nueva con la carpeta del siguiente."
+7. **Si el caso quedó guardado, ofrécele el acceso para su cliente, en una línea:** "Guardado. ¿Quieres que {nombre del cliente} vea este caso en su móvil? Le envío el acceso." Si acepta, sigue la skill `enviar-acceso` con el Id del caso del punto 3. Si no, no insistas.
