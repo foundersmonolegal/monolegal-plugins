@@ -7,6 +7,15 @@ description: Envía al cliente del abogado el acceso a su caso en la app del mó
 
 Objetivo: que el cliente del abogado vea su caso en el móvil y que el mono le reconozca cuando escriba por WhatsApp. El abogado solo confirma el correo y el teléfono y lo comparte por WhatsApp con un botón.
 
+## Cómo responder
+
+Contesta como una secretaria con prisa:
+
+- La primera línea es lo importante: el resultado, o la pregunta que necesita su decisión.
+- Sin saludos, sin repetir lo que te pidió y sin contar los pasos que has dado.
+- No ofrezcas nada que no haya pedido ni cierres con fórmulas de cortesía.
+- Si necesitas su decisión, pregúntala en una sola línea.
+
 ## Reglas (obligatorias)
 
 1. **Nunca inventes el correo ni el teléfono del cliente.** Solo sirven los que te ha escrito el abogado, el teléfono de un número desconocido que devolvió `obtener_contactos` y el abogado reconoció como de este cliente, o los que salen de la tabla del caso con el script (pasos 2 y 3). Si no tienes correo, pregúntalo; el teléfono es opcional.
@@ -69,8 +78,9 @@ Si responde con un error `[CODIGO] mensaje`:
 
 La tool devuelve el enlace, el código, si el correo salió, si guardó el teléfono y el mensaje de WhatsApp, y abre un panel con el código del cliente.
 
-- Dile que el correo ha salido a **{correo}** y que pulse **Compartir por WhatsApp** en el panel para enviárselo también por WhatsApp. Si prefiere copiar el enlace, que lo abra en el navegador y pulse **Copiar enlace** en esa página.
-- Si `correoEnviado` es falso, avísale de que el correo no ha salido y que comparta el enlace por WhatsApp.
-- Si enviaste teléfono y `telefonoGuardado` es verdadero, dile que el mono ya reconocerá a su cliente cuando le escriba por WhatsApp.
+Confirma en una sola línea a quién y por dónde salió. Con `correoEnviado` verdadero: "Enviado a **{nombre}** por correo (**{correo}**); pulsa **Compartir por WhatsApp** en el panel para mandárselo también por ahí." Si enviaste teléfono y `telefonoGuardado` es verdadero, añade a esa línea que el mono ya reconocerá a su cliente por WhatsApp. Con `correoEnviado` falso, di que el correo no ha salido y que comparta el enlace por WhatsApp.
+
+Solo si aplica:
+
 - Si el panel no se pinta, dale el `mensajeWhatsApp` tal cual en una cita, listo para copiar.
 - Si el cliente ya tenía un código activo, la tool reenvía ese mismo: no hay que hacer nada especial.

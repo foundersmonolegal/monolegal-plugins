@@ -16,7 +16,7 @@ import json
 import sys
 from pathlib import Path
 
-VERSION_PLUGIN = "0.6.0"
+VERSION_PLUGIN = "0.8.0"
 TRAMOS = [("identificar", "inicio", "identificado"), ("lectura_y_propuesta", "identificado", "propuesta"),
           ("revision_abogado", "propuesta", "confirmado"), ("publicacion", "confirmado", "publicado")]
 
