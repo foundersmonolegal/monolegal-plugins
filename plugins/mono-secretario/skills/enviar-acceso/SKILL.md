@@ -62,7 +62,7 @@ Si hay dudas entre varios correos o teléfonos, di cuál propones y por qué ("e
 
 ## Paso 5. Enviar
 
-Llama a `enviar_codigo_acceso` (conector `Mono_Virtual`) con el Id del caso, el correo confirmado y, si lo hay, el teléfono confirmado en `telefonoCliente`. Añade `nombreDespacho` y `nombreAbogado` solo cuando los tengas porque la tool te los pidió.
+Llama a `enviar_codigo_acceso` (conector `Mono_Virtual`) con el Id del caso, el correo confirmado y, si lo hay, el teléfono confirmado en `telefonoCliente`. Pásalo siempre en formato internacional, `+` y prefijo del país seguido de los dígitos, sin espacios, guiones ni paréntesis: si el abogado lo escribe sin prefijo (por ejemplo `662392296` o `662 39 22 96`), es un número español y envías `+34662392296`; si empieza por `0034` o `34` seguido de 9 dígitos, envía `+34` y los 9 dígitos; si ya trae `+` y otro prefijo, respétalo. Añade `nombreDespacho` y `nombreAbogado` solo cuando los tengas porque la tool te los pidió.
 
 Si responde con un error `[CODIGO] mensaje`:
 

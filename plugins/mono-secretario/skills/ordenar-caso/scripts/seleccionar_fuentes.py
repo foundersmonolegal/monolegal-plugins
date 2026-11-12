@@ -3,6 +3,7 @@
 Uso:
     python3 seleccionar_fuentes.py elegir <listado.json> [--tanda 15]
     python3 seleccionar_fuentes.py fechas <carpeta de trabajo> <listado.json>
+    python3 seleccionar_fuentes.py del-dia <listado.json> [--fecha AAAA-MM-DD] [--tanda 15]
 
 La carpeta del caso suele estar en Google Drive (unidad G: en Windows), que la terminal no puede montar.
 Por eso se lista con la herramienta de archivos de la app y solo se traen los archivos necesarios:
@@ -17,7 +18,11 @@ jurisprudencia, y ordena el resto: chats de WhatsApp, las resoluciones más reci
 fechas: al traerlos, las copias pierden su fecha; les devuelve la original para que identificar_caso.py
 ordene bien.
 
-Códigos de salida: 0 correcto, 4 nada que leer, 2 uso incorrecto.
+del-dia: lo mismo que elegir, pero solo con los archivos modificados en esa fecha (hoy, si no se indica), para
+poner al día un caso con lo que ha llegado hoy. Con un listado vacío o mal formado imprime {"error": ...}.
+
+Códigos de salida: 0 correcto, 4 nada que leer, 5 ningún archivo de la fecha (sin novedades), 1 el listado no
+es válido (solo del-dia), 2 uso incorrecto.
 """
 from __future__ import annotations
 
@@ -35,6 +40,7 @@ import whatsapp
 from identificar_caso import EXTENSIONES_LEIBLES, Reglas, cargar_patrones, datos_lexnet, en_carpeta_jurisprudencia, fecha_en_nombre, normalizar
 
 ARCHIVOS_DE_SISTEMA = {"desktop.ini", "thumbs.db", ".ds_store"}
+SIN_NOVEDADES = 5           # del-dia: ningún archivo de esa fecha que merezca leerse
 MAX_CHATS = 4               # el abogado puede hablar con el cliente desde dos teléfonos
 RESOLUCIONES_PRIORITARIAS = 5
 
@@ -114,6 +120,24 @@ def elegir(listado: list | dict, tamano_tanda: int = 15, max_tandas: int = 3, ho
             "whatsapp": [c["ruta"] for c in chats], "tandas": tandas}
 
 
+def del_dia(listado: list | dict, fecha: dt.date | None = None, tamano_tanda: int = 15, max_tandas: int = 3) -> dict:
+    """Lo mismo que elegir, pero solo con los archivos modificados en esa fecha (hoy, si no se indica)."""
+    fecha = fecha or dt.date.today()
+    archivos = _archivos_del_listado(listado)
+    de_la_fecha = [entrada for entrada in archivos if _fecha(entrada.get("modificado")).date() == fecha]
+    resultado = elegir(de_la_fecha, tamano_tanda, max_tandas, hoy=fecha)
+    return {"fecha": fecha.isoformat(), "modificados": len(de_la_fecha), **resultado}
+
+
+def _archivos_del_listado(listado: list | dict) -> list[dict]:
+    archivos = _archivos(listado) if isinstance(listado, (list, dict)) else None
+    if not isinstance(archivos, list) or not archivos:
+        raise ValueError("El listado está vacío o no tiene la forma esperada: una lista de archivos con su ruta y su fecha de modificación.")
+    if not all(isinstance(entrada, dict) and entrada.get("ruta") for entrada in archivos):
+        raise ValueError("Todos los archivos del listado necesitan su ruta.")
+    return archivos
+
+
 def fijar_fechas(trabajo: Path, listado: list | dict) -> dict:
     ajustados = sin_copia = 0
     for entrada in _archivos(listado):
@@ -127,6 +151,23 @@ def fijar_fechas(trabajo: Path, listado: list | dict) -> dict:
     return {"ajustados": ajustados, "sin_copia": sin_copia}
 
 
+def _imprimir_del_dia(ruta_listado: Path, fecha: dt.date | None, tamano_tanda: int) -> int:
+    try:
+        listado = json.loads(ruta_listado.read_text(encoding="utf-8"))
+        resultado = del_dia(listado, fecha, tamano_tanda)
+    except OSError as error:
+        print(json.dumps({"error": f"No se pudo leer el listado: {error.strerror or error}"}, ensure_ascii=False))
+        return 1
+    except json.JSONDecodeError as error:
+        print(json.dumps({"error": f"El listado no es un JSON válido: {error}"}, ensure_ascii=False))
+        return 1
+    except ValueError as error:
+        print(json.dumps({"error": str(error)}, ensure_ascii=False))
+        return 1
+    print(json.dumps(resultado, ensure_ascii=False, indent=1))
+    return 0 if resultado["tandas"] else SIN_NOVEDADES
+
+
 def main(argumentos: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ordenes = parser.add_subparsers(dest="orden", required=True)
@@ -136,10 +177,17 @@ def main(argumentos: list[str] | None = None) -> int:
     orden_fechas = ordenes.add_parser("fechas")
     orden_fechas.add_argument("trabajo")
     orden_fechas.add_argument("listado")
+    orden_del_dia = ordenes.add_parser("del-dia")
+    orden_del_dia.add_argument("listado")
+    orden_del_dia.add_argument("--fecha", type=dt.date.fromisoformat)
+    orden_del_dia.add_argument("--tanda", type=int, default=15)
     try:
         args = parser.parse_args(argumentos)
     except SystemExit:
         return 2
+
+    if args.orden == "del-dia":
+        return _imprimir_del_dia(Path(args.listado), args.fecha, args.tanda)
 
     listado = json.loads(Path(args.listado).read_text(encoding="utf-8"))
     if args.orden == "fechas":

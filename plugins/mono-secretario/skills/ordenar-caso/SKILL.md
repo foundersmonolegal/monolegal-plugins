@@ -1,6 +1,6 @@
 ---
 name: ordenar-caso
-description: Ordena el desorden de un caso del abogado. Lee la carpeta del caso, su WhatsApp con el cliente y, si está conectado, su correo, oculta los datos personales, ordena los documentos por fecha, descarta la jurisprudencia y le muestra en qué fase está el caso, cuál es el siguiente paso y las últimas actuaciones, para que lo revise antes de compartirlo con su cliente. Úsala cuando el abogado ejecute /mono-secretario:ordenar-caso o pida ordenar, poner al día o revisar el estado de un caso.
+description: Ordena el desorden de un caso del abogado. Lee la carpeta del caso, su WhatsApp con el cliente y, si está conectado, su correo, oculta los datos personales, ordena los documentos por fecha, descarta la jurisprudencia y le muestra en qué fase está el caso, cuál es el siguiente paso y las últimas actuaciones, para que lo revise antes de compartirlo con su cliente. Úsala cuando el abogado ejecute /mono-secretario:ordenar-caso o pida ordenar o revisar el estado de un caso.
 ---
 
 # Ordenar un caso
@@ -33,6 +33,19 @@ Contesta como una secretaria con prisa:
 9. **Cada dato con su fuente.** Fase, siguiente paso, evidencias y actuaciones llevan el documento o chat del que salen.
 10. **Si las fuentes no bastan, dilo.** No rellenes fases, pasos ni fechas que no puedas apoyar en una fuente.
 
+## Caso ya elegido
+
+Otra skill (`ordenar-casos`) puede darte la subcarpeta del caso y el nombre del cliente ya confirmados por el abogado. En ese caso:
+
+- **No preguntes ni el nombre del cliente ni la subcarpeta.** Sigue en el paso 2 listando esa subcarpeta.
+- **El paso 1 se reduce a una pregunta:** si puedes leer como imagen los documentos escaneados (la 4 del mensaje). Hazla solo la primera vez de la sesión; si el abogado ya respondió en un caso anterior, no la repitas y aplica esa respuesta.
+- No preguntes ni por el WhatsApp ni por el correo del cliente. Si el chat exportado está en la subcarpeta, se usa; si no, ordenas el caso sin él (no le preguntes si ya lo ha guardado). Con Gmail, el subagente busca solo por el nombre del cliente.
+- El paso 2.1 se ejecuta al empezar cada caso: la carpeta de trabajo se vacía y nada de un caso se mezcla con el siguiente.
+- Todo lo demás (traer, anonimizar, revisión, confirmación, guardado y oferta del acceso) no cambia.
+- Al terminar el paso 9, deja dicho el resultado del caso (punto 9) para que la skill que te llamó continúe.
+
+Si no recibes la subcarpeta y el nombre del cliente, sigue el paso 1 como siempre.
+
 ## Paso 0. Comprobaciones, antes de leer nada
 
 1. **MCP de casos:** comprueba que tienes `listar_casos` (conector `Mono_Virtual` de este plugin). Si no, dile al abogado: "Conecta **Mono Virtual** en la pestaña Connectors del plugin e inicia sesión con tu cuenta de Monolegal. Si te pide un identificador de cliente, escribe `claude`." Espera a que lo conecte y comprueba que `listar_casos` responde antes de seguir.
@@ -40,6 +53,8 @@ Contesta como una secretaria con prisa:
 3. **Gmail (opcional):** comprueba si tienes las herramientas de lectura de Gmail (`search_threads`, `get_thread`). Si no, sigue sin correo y anótalo en los avisos.
 
 ## Paso 1. Un mensaje al abogado
+
+Si vienes de otra skill con el caso ya elegido, sigue la sección «Caso ya elegido» y no escribas este mensaje.
 
 Escríbele un solo mensaje corto con lo que necesitas. Por ejemplo:
 
@@ -158,11 +173,13 @@ Cuando el abogado pegue el resultado:
    Si sale con código 1 porque una descripción lleva claves de datos personales, reescríbela para el cliente en segunda persona y sin nombres, guarda `confirmado.json` y repite. Si el error es de fase, fechas o autores, explícaselo al abogado y que lo corrija en la página.
 2. **¿Ya existe?** Llama a `listar_casos`. Si hay un caso con el mismo `codigoCliente` y el mismo nombre, pregunta al abogado si quiere rehacerlo: si dice que sí, `reiniciar_caso` con ese Id y úsalo; si no, crea uno nuevo.
 3. **Guarda**, en este orden y con los datos que imprimió el script: `crear_caso` (anota el `Id`), `registrar_actuaciones` y `actualizar_estado_caso`.
-4. **Si el MCP no está actualizado**, `registrar_actuaciones` rechazará los autores `Juzgado`, `Contraparte` o `Administracion`, o `actualizar_estado_caso` no aceptará `siguientePaso`. En ese caso vuelve a preparar con `--contrato v1` y repite solo las llamadas que fallaron con el mismo Id de caso.
-5. **Enséñale cómo lo verá su cliente** con la vista previa del móvil:
+4. **Recuerda el caso en su carpeta**, para poder actualizarlo después con la skill `actualizar-caso`: `python3 "${CLAUDE_SKILL_DIR}/scripts/caso_guardado.py" escribir "<caso>" "<Id del caso>"` y copia `<caso>/.monolegal/caso.json` a `.monolegal/caso.json` de la carpeta del caso del abogado con la herramienta que lleva archivos al equipo. El archivo solo lleva el Id, la fecha y la versión del plugin, sin datos personales. Si la copia falla, anótalo en los avisos y sigue: no deshace el guardado.
+5. **Si el MCP no está actualizado**, `registrar_actuaciones` rechazará los autores `Juzgado`, `Contraparte` o `Administracion`, o `actualizar_estado_caso` no aceptará `siguientePaso`. En ese caso vuelve a preparar con `--contrato v1` y repite solo las llamadas que fallaron con el mismo Id de caso.
+6. **Enséñale cómo lo verá su cliente** con la vista previa del móvil:
    ```
    python3 "${CLAUDE_SKILL_DIR}/scripts/registro.py" "<caso>" marcar publicado && python3 "${CLAUDE_SKILL_DIR}/scripts/generar_revision.py" "<caso>/.monolegal/confirmado.json" "<caso>/.monolegal/guardado.html" --guardado "<Id del caso>" --datos "<caso>/.monolegal/datos_personales.json"
    ```
    **Muéstrale `guardado.html` en el panel lateral** como vista previa del archivo, igual que la revisión. No lo leas: lleva los nombres reales. Si el panel no se abre, cópialo a la carpeta del caso con la herramienta que lleva archivos al equipo y dile que lo abra desde ahí. No llames a `mostrar_caso_guardado`.
-6. **Registra la ejecución:** `python3 "${CLAUDE_SKILL_DIR}/scripts/registro.py" "<caso>" ejecucion --caso-id "<Id del caso>" --resultado publicado` y, si existe la herramienta `registrar_ejecucion`, llámala con lo que imprime. Si el abogado decide no guardar el caso, haz lo mismo con `--resultado sin_publicar` y sin `--caso-id`.
-7. **Si el caso quedó guardado, ofrécele el acceso para su cliente, en una línea:** "Guardado. ¿Quieres que {nombre del cliente} vea este caso en su móvil? Le envío el acceso." Si acepta, sigue la skill `enviar-acceso` con el Id del caso del punto 3. Si no, no insistas.
+7. **Registra la ejecución:** `python3 "${CLAUDE_SKILL_DIR}/scripts/registro.py" "<caso>" ejecucion --caso-id "<Id del caso>" --resultado publicado` y, si existe la herramienta `registrar_ejecucion`, llámala con lo que imprime. Si el abogado decide no guardar el caso, haz lo mismo con `--resultado sin_publicar` y sin `--caso-id`.
+8. **Si el caso quedó guardado, ofrécele el acceso para su cliente, en una línea:** "Guardado. ¿Quieres que {nombre del cliente} vea este caso en su móvil? Le envío el acceso." Si acepta, sigue la skill `enviar-acceso` con el Id del caso del punto 3. Si no, no insistas.
+9. **Solo si vienes de otra skill con el caso ya elegido, deja el resultado en una línea** para que continúe: "Resultado de {nombre del cliente}: guardado, acceso enviado", "guardado, sin acceso" (el abogado rechazó el acceso o no se envió) o "sin guardar". Si el caso quedó sin guardar, no se ofrece el acceso (punto 8). En la ejecución normal no añadas nada.

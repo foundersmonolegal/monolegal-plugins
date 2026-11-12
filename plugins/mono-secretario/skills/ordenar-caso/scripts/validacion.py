@@ -62,13 +62,7 @@ def validar_contenido(propuesta: dict) -> list[str]:
     if propuesta.get("faseActual") not in fases:
         errores.append("faseActual debe ser exactamente una de las fases")
 
-    paso = propuesta.get("siguientePaso") or {}
-    if not _texto(paso.get("descripcion")):
-        errores.append("siguientePaso.descripcion está vacío")
-    if paso.get("responsable") not in AUTORES:
-        errores.append(f"siguientePaso.responsable debe ser uno de {', '.join(AUTORES)}")
-    if paso.get("fechaLimite") not in (None, "") and not _fecha_correcta(paso.get("fechaLimite")):
-        errores.append("siguientePaso.fechaLimite debe ser AAAA-MM-DD o vacía")
+    errores += validar_siguiente_paso(propuesta.get("siguientePaso") or {})
 
     actuaciones = propuesta.get("actuaciones")
     if not isinstance(actuaciones, list) or not actuaciones:
@@ -78,12 +72,31 @@ def validar_contenido(propuesta: dict) -> list[str]:
     if len(set(ids)) != len(ids) or not all(_texto(i) for i in ids):
         errores.append("cada actuación necesita un id único")
     for i, actuacion in enumerate(actuaciones):
-        if not _fecha_correcta(actuacion.get("fecha")):
-            errores.append(f"actuaciones[{i}].fecha debe ser AAAA-MM-DD o fecha y hora con zona")
-        if actuacion.get("autor") not in AUTORES:
-            errores.append(f"actuaciones[{i}].autor debe ser uno de {', '.join(AUTORES)}")
-        if not _texto(actuacion.get("descripcion")):
-            errores.append(f"actuaciones[{i}].descripcion está vacía")
+        errores += validar_actuacion(actuacion, i)
+    return errores
+
+
+def validar_siguiente_paso(paso: dict) -> list[str]:
+    """Problemas de un siguiente paso: descripción, responsable y, si la hay, la fecha límite."""
+    errores = []
+    if not _texto(paso.get("descripcion")):
+        errores.append("siguientePaso.descripcion está vacío")
+    if paso.get("responsable") not in AUTORES:
+        errores.append(f"siguientePaso.responsable debe ser uno de {', '.join(AUTORES)}")
+    if paso.get("fechaLimite") not in (None, "") and not _fecha_correcta(paso.get("fechaLimite")):
+        errores.append("siguientePaso.fechaLimite debe ser AAAA-MM-DD o vacía")
+    return errores
+
+
+def validar_actuacion(actuacion: dict, indice: int) -> list[str]:
+    """Problemas de la actuación que ocupa el lugar `indice` de la lista: fecha, autor y descripción."""
+    errores = []
+    if not _fecha_correcta(actuacion.get("fecha")):
+        errores.append(f"actuaciones[{indice}].fecha debe ser AAAA-MM-DD o fecha y hora con zona")
+    if actuacion.get("autor") not in AUTORES:
+        errores.append(f"actuaciones[{indice}].autor debe ser uno de {', '.join(AUTORES)}")
+    if not _texto(actuacion.get("descripcion")):
+        errores.append(f"actuaciones[{indice}].descripcion está vacía")
     return errores
 
 
