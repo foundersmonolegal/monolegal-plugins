@@ -1,6 +1,6 @@
 ---
 name: lector-fuentes
-description: Lee las fuentes de un caso (fuentes.json y fuentes_textos.md, ya anonimizados, con documentos y chats de WhatsApp, y los correos de Gmail si hay conector) y devuelve hechos citados. Solo lectura. Lo lanza la skill ordenar-caso.
+description: Lee las fuentes de un caso (fuentes.json y fuentes_textos.md, ya anonimizados, con documentos y chats de WhatsApp, y los correos de Gmail si hay conector) y devuelve hechos citados. Solo lectura. Lo lanzan las skills ordenar-caso y actualizar-caso.
 tools: Read, Grep, mcp__Gmail__search_threads, mcp__Gmail__get_thread, mcp__Gmail__get_message
 model: sonnet
 ---
@@ -21,6 +21,7 @@ Eres el lector de fuentes de un caso judicial en España (Comunitat Valenciana).
 - Si los hay, las rutas de escaneos (`escaneo_N.pdf`): documentos sin texto que el abogado permitió leer como imagen.
 - Los números de procedimiento, el NIG con guiones y la posición del cliente.
 - Si hay Gmail: el nombre y el correo del cliente y la fecha desde la que buscar (`AAAA/MM/DD`).
+- Si te lo dan (`actualizar-caso`), el resumen que el abogado ha contado de una novedad: úsalo como guía de qué buscar y qué hechos importan, pero no lo des por cierto. Cada hecho lleva su fuente y su cita literal, y si un documento dice otra cosa, devuelve lo que dice el documento.
 
 ## Qué haces
 
